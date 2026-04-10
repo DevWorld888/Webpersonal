@@ -106,8 +106,7 @@ export function Contact() {
         <motion.div
           className="flex flex-col gap-12"
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          animate="visible"
           transition={{ staggerChildren: 0.12 }}
         >
           {/* Heading */}

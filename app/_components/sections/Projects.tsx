@@ -5,31 +5,31 @@ import { ProjectCard } from "@/app/_components/ui/ProjectCard"
 
 const PROJECTS = [
   {
-    title: "Project One",
+    title: "Prisma Coatings",
     description:
-      "A short description of what the project does and the problem it solves.",
-    image: "/projects/project-one.png",
+      "Painting company website built with Next.js, TypeScript, and Tailwind CSS. Features a modern design, responsive layout, and smooth animations to showcase services and portfolio effectively.",
+    image: "/projects/prismacoatingsProject.jpeg",
     tech: ["Next.js", "TypeScript", "Tailwind"],
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com",
+    liveUrl: "https://www.prismacoatings.com.au/",
+    githubUrl: "https://github.com/DevWorld888",
   },
   {
-    title: "Project Two",
+    title: "KWord Agency",
     description:
-      "A short description of what the project does and the problem it solves.",
-    image: "/projects/project-two.png",
+      "A digital agency website built with React, Node.js, and MySQL. Features a modern design, responsive layout, and smooth animations to showcase services and portfolio effectively.",
+    image: "/projects/kwordagency.jpeg",
     tech: ["React", "Node.js", "MySQL"],
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com",
+    liveUrl: "https://kwordagency-seven.vercel.app/",
+    githubUrl: "https://github.com/DevWorld888",
   },
-  {
-    title: "Project Three",
-    description:
-      "A short description of what the project does and the problem it solves.",
-    image: "/projects/project-three.png",
-    tech: ["TypeScript", "Express", "PostgreSQL"],
-    githubUrl: "https://github.com",
-  },
+  // {
+  //   title: "Project Three",
+  //   description:
+  //     "A short description of what the project does and the problem it solves.",
+  //   image: "/projects/project-three.png",
+  //   tech: ["TypeScript", "Express", "PostgreSQL"],
+  //   githubUrl: "https://github.com",
+  // },
 ]
 
 const fadeUp = {
@@ -67,7 +67,7 @@ export function Projects() {
 
         {/* Grid */}
         <motion.div
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}

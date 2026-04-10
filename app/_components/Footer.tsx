@@ -10,7 +10,7 @@ const NAV_LINKS = [
 const SOCIAL_LINKS = [
   {
     label: "GitHub",
-    href: "https://github.com/augustoshamadi",
+    href: "https://github.com/DevWorld888",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ const SOCIAL_LINKS = [
   },
   {
     label: "LinkedIn",
-    href: "https://linkedin.com/in/augustoshamadi",
+    href: "https://www.linkedin.com/in/augustocs/",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@ export function Footer() {
             href="/"
             className="text-sm font-semibold text-foreground transition-colors hover:text-muted-foreground"
           >
-            Augusto Shamadi
+            Augusto Caceres Suarez
           </Link>
           <p className="text-xs text-muted-foreground">
             &copy; {year} All rights reserved.

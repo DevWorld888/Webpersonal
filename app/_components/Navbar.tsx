@@ -32,7 +32,7 @@ export function Navbar() {
           href="/"
           className="text-sm font-semibold text-foreground transition-colors hover:text-muted-foreground"
         >
-          Augusto Shamadi
+          Gus Dev
         </Link>
 
         <ul className="hidden items-center gap-8 sm:flex">
