@@ -14,10 +14,10 @@ const PROJECTS = [
     githubUrl: "https://github.com/DevWorld888",
   },
   {
-    title: "KWord Agency",
+    title: "Kword Agency",
     description:
       "A digital agency website built with React, Node.js, and MySQL. Features a modern design, responsive layout, and smooth animations to showcase services and portfolio effectively.",
-    image: "/projects/kwordagency.jpeg",
+    image: "/projects/kwordagency.webp",
     tech: ["React", "Node.js", "MySQL"],
     liveUrl: "https://kwordagency-seven.vercel.app/",
     githubUrl: "https://github.com/DevWorld888",

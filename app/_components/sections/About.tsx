@@ -4,7 +4,7 @@ import { motion } from "motion/react"
 
 const STATS = [
   { value: "3+", label: "Years of experience" },
-  { value: "1+", label: "Projects shipped" },
+  { value: "3+", label: "Projects shipped" },
   { value: "Open", label: "Remote · Freelance · Startups" },
 ]
 
