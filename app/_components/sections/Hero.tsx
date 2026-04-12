@@ -80,7 +80,7 @@ export function Hero() {
           </Button>
 
           <Button size="lg" variant="outline" asChild>
-            <a href="/cv.pdf" download>
+            <a href="docs/hvSoftwareDevIsraelAugustoCaceresS.pdf" download>
               Download CV <ArrowDownToLine className="ml-1" />
             </a>
           </Button>
