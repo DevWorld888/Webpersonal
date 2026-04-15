@@ -13,7 +13,7 @@ const fadeUp = {
 
 export function Hero() {
   return (
-    <section className="flex min-h-screen flex-col items-center justify-center px-6 text-center">
+    <section className="flex min-h-screen flex-col items-center justify-center px-6 text-center" id="home">
       <motion.div
         className="flex max-w-2xl flex-col items-center gap-8"
         initial="hidden"
