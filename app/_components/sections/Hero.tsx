@@ -35,9 +35,9 @@ export function Hero() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="-mt-4 text-5xl font-bold tracking-tight text-foreground sm:text-6xl"
         >
-          Full-Stack Developer.{" "}
+          Get More Clients With {" "}
           <span className="text-muted-foreground">
-            From idea to deployment.
+            High-Converting Websites.
           </span>
         </motion.h1>
 
@@ -47,8 +47,7 @@ export function Hero() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="-mt-2 max-w-lg text-lg leading-relaxed text-muted-foreground"
         >
-          I build clean UIs, solid APIs, and reliable databases.
-          Open to full-time roles &amp; freelance projects.
+          I help tradies and small businesses in Australia turn their website into a lead generation machine using SEO, automation &amp; modern web development.
         </motion.p>
 
         {/* Tech badges */}
