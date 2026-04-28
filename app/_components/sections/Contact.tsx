@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion } from "motion/react"
 import { Button } from "@/components/ui/button"
-import { Send, CheckCircle } from "lucide-react"
+import { CheckCircle } from "lucide-react"
 import { contactSchema, type ContactFormData } from "@/lib/schemas/contact-schema"
 
 const fadeUp = {
@@ -17,7 +17,13 @@ const inputBase =
 type Fields = keyof ContactFormData
 type FieldErrors = Partial<Record<Fields, string>>
 
-const empty: ContactFormData = { name: "", email: "", message: "" }
+const empty: ContactFormData = {
+  name: "",
+  email: "",
+  service: "",
+  website: "",
+  problem: "",
+}
 
 export function Contact() {
   const [values, setValues] = useState<ContactFormData>(empty)
@@ -29,7 +35,6 @@ export function Contact() {
   ) {
     const { name, value } = e.target
     setValues((prev) => ({ ...prev, [name]: value }))
-    // clear error for this field as the user types
     if (errors[name as Fields]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }))
     }
@@ -79,11 +84,11 @@ export function Contact() {
           >
             <CheckCircle className="h-10 w-10 text-foreground" />
             <h2 className="text-3xl font-bold tracking-tight text-foreground">
-              Message sent.
+              You&apos;re in.
             </h2>
             <p className="text-base leading-relaxed text-muted-foreground">
-              Thanks for reaching out — I&apos;ll get back to you as soon as
-              possible.
+              Check your inbox — I&apos;ll review your website and send you a
+              short video with specific improvements. Usually within 24–48 hours.
             </p>
             <Button
               variant="outline"
@@ -92,7 +97,7 @@ export function Contact() {
                 setStatus("idle")
               }}
             >
-              Send another message
+              Submit another request
             </Button>
           </motion.div>
         </div>
@@ -115,14 +120,15 @@ export function Contact() {
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <p className="mb-2 text-sm font-medium uppercase tracking-widest text-muted-foreground">
-              Contact
+              Free Website Audit
             </p>
             <h2 className="text-4xl font-bold tracking-tight text-foreground">
-              Let&apos;s Work Together
+              Is Your Website Costing You Jobs?
             </h2>
             <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
-              Have a project in mind or want to talk? Send me a message and
-              I&apos;ll get back to you as soon as possible.
+              Fill in your details below. I&apos;ll review your online presence
+              and send you a short video showing exactly what to fix — at no
+              cost, no strings attached.
             </p>
           </motion.div>
 
@@ -136,11 +142,8 @@ export function Contact() {
           >
             {/* Name */}
             <div className="flex flex-col gap-1.5">
-              <label
-                htmlFor="name"
-                className="text-sm font-medium text-foreground"
-              >
-                Name
+              <label htmlFor="name" className="text-sm font-medium text-foreground">
+                Your name
               </label>
               <input
                 id="name"
@@ -148,7 +151,7 @@ export function Contact() {
                 name="name"
                 value={values.name}
                 onChange={handleChange}
-                placeholder="Your name"
+                placeholder="John Smith"
                 autoComplete="name"
                 className={`${inputBase} ${errors.name ? "border-destructive focus-visible:ring-destructive/50" : "border-border"}`}
               />
@@ -159,11 +162,8 @@ export function Contact() {
 
             {/* Email */}
             <div className="flex flex-col gap-1.5">
-              <label
-                htmlFor="email"
-                className="text-sm font-medium text-foreground"
-              >
-                Email
+              <label htmlFor="email" className="text-sm font-medium text-foreground">
+                Email address
               </label>
               <input
                 id="email"
@@ -171,7 +171,7 @@ export function Contact() {
                 name="email"
                 value={values.email}
                 onChange={handleChange}
-                placeholder="you@example.com"
+                placeholder="john@yourbusiness.com.au"
                 autoComplete="email"
                 className={`${inputBase} ${errors.email ? "border-destructive focus-visible:ring-destructive/50" : "border-border"}`}
               />
@@ -180,25 +180,62 @@ export function Contact() {
               )}
             </div>
 
-            {/* Message */}
+            {/* Service */}
             <div className="flex flex-col gap-1.5">
-              <label
-                htmlFor="message"
-                className="text-sm font-medium text-foreground"
-              >
-                Message
+              <label htmlFor="service" className="text-sm font-medium text-foreground">
+                What service do you offer?
+              </label>
+              <input
+                id="service"
+                type="text"
+                name="service"
+                value={values.service}
+                onChange={handleChange}
+                placeholder="e.g. Painter, Electrician, Cleaner, Plumber..."
+                className={`${inputBase} ${errors.service ? "border-destructive focus-visible:ring-destructive/50" : "border-border"}`}
+              />
+              {errors.service && (
+                <p className="text-xs text-destructive">{errors.service}</p>
+              )}
+            </div>
+
+            {/* Website */}
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="website" className="text-sm font-medium text-foreground">
+                Your website{" "}
+                <span className="text-muted-foreground font-normal">(optional)</span>
+              </label>
+              <input
+                id="website"
+                type="url"
+                name="website"
+                value={values.website}
+                onChange={handleChange}
+                placeholder="https://yourbusiness.com.au"
+                autoComplete="url"
+                className={`${inputBase} ${errors.website ? "border-destructive focus-visible:ring-destructive/50" : "border-border"}`}
+              />
+              {errors.website && (
+                <p className="text-xs text-destructive">{errors.website}</p>
+              )}
+            </div>
+
+            {/* Problem */}
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="problem" className="text-sm font-medium text-foreground">
+                What&apos;s your biggest problem getting clients right now?
               </label>
               <textarea
-                id="message"
-                name="message"
-                value={values.message}
+                id="problem"
+                name="problem"
+                value={values.problem}
                 onChange={handleChange}
-                placeholder="Tell me about your project..."
-                rows={5}
-                className={`${inputBase} resize-y ${errors.message ? "border-destructive focus-visible:ring-destructive/50" : "border-border"}`}
+                placeholder="e.g. My phone barely rings, I rely on word of mouth, people visit my site but never call..."
+                rows={4}
+                className={`${inputBase} resize-y ${errors.problem ? "border-destructive focus-visible:ring-destructive/50" : "border-border"}`}
               />
-              {errors.message && (
-                <p className="text-xs text-destructive">{errors.message}</p>
+              {errors.problem && (
+                <p className="text-xs text-destructive">{errors.problem}</p>
               )}
             </div>
 
@@ -210,15 +247,20 @@ export function Contact() {
             )}
 
             {/* Submit */}
-            <Button
-              type="submit"
-              size="lg"
-              className="mt-1 w-full"
-              disabled={status === "loading"}
-            >
-              {status === "loading" ? "Sending…" : "Send Message"}
-              <Send className="ml-2 h-4 w-4" />
-            </Button>
+            <div className="flex flex-col gap-2">
+              <Button
+                type="submit"
+                size="lg"
+                className="mt-1 w-full"
+                disabled={status === "loading"}
+              >
+                {status === "loading" ? "Sending…" : "Get My Free Website Audit"}
+              </Button>
+              <p className="text-center text-xs text-muted-foreground">
+                No sales call. No commitment. Just honest feedback on what&apos;s
+                holding your business back online.
+              </p>
+            </div>
           </motion.form>
         </motion.div>
       </div>

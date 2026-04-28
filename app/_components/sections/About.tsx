@@ -1,5 +1,5 @@
 "use client";
-import { ArrowDownToLine, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "motion/react";
 
@@ -10,10 +10,10 @@ const STATS = [
 ];
 
 const BENEFITS = [
-  "High-converting websites built around your business goals",
-  "SEO included — so customers find you on Google",
+  "Websites built to generate real leads",
+  "SEO so customers actually find you on Google",
   "Automation to capture and follow up leads 24/7",
-  "Direct communication, no middlemen or account managers",
+  "Direct communication — no agencies, no middlemen",
 ];
 
 const fadeUp = {
@@ -32,13 +32,13 @@ export function About() {
         transition={{ staggerChildren: 0.12 }}
       >
         {/* Section label */}
-        <motion.p
+        <motion.h2
           variants={fadeUp}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="text-sm font-medium uppercase tracking-widest text-muted-foreground"
         >
           About
-        </motion.p>
+        </motion.h2>
 
         {/* Hook — pain point */}
         <motion.div
@@ -46,16 +46,25 @@ export function About() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="flex max-w-2xl flex-col gap-6"
         >
-          <p className="border-l-4 border-primary pl-4 text-xl leading-relaxed text-foreground">
-            Most local businesses have a website — but not one that actually
-            brings them clients.
-          </p>
+          <h3 className="border-l-4 border-primary pl-4 text-xl leading-relaxed text-foreground">
+            Most business websites don&apos;t bring clients — they just sit there.
+            Every day, you&apos;re losing potential jobs because your website isn&apos;t
+            built to convert.
+          </h3>
+
+          <p className="text-lg font-semibold text-foreground">I fix that.</p>
 
           <p className="text-lg leading-relaxed text-muted-foreground">
-            I&apos;m a full-stack developer focused on one thing: helping local
-            businesses and e-commerce stores get more customers online. I don&apos;t
-            just build websites — I build complete systems that generate leads,
-            rank on Google, and convert visitors into paying clients.
+            I help tradies and small businesses turn their website into a
+            consistent source of calls, leads and paying customers — using
+            conversion-focused design, SEO and smart automation.
+          </p>
+
+          <p className="text-base text-muted-foreground">
+            This isn&apos;t about having a &ldquo;nice website&rdquo;.{" "}
+            <span className="font-medium text-foreground">
+              It&apos;s about getting more jobs.
+            </span>
           </p>
 
           {/* Benefits */}
@@ -68,15 +77,12 @@ export function About() {
             ))}
           </ul>
 
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            I&apos;ve worked with businesses like{" "}
-            <span className="font-medium text-foreground">Prisma Coatings</span>,
-            where the goal was never just &ldquo;a nice website&rdquo; — it was more
-            customers. Unlike big agencies, I offer{" "}
-            <span className="font-medium text-foreground">
-              fair, transparent pricing
-            </span>{" "}
-            with no hidden fees and personal attention from start to finish.
+          {/* Social proof */}
+          <p className="text-base leading-relaxed text-muted-foreground">
+            Currently working with real businesses like{" "}
+            <span className="font-medium text-foreground">Prisma Coatings</span>{" "}
+            — improving their online presence and turning their website into a
+            client acquisition system.
           </p>
         </motion.div>
 
@@ -88,14 +94,12 @@ export function About() {
         >
           <Button size="lg" asChild>
             <a href="#contact">
-              Book a Free Consultation <ArrowRight className="ml-1" />
+              Get a Free Website Review <ArrowRight className="ml-1" />
             </a>
           </Button>
 
           <Button size="lg" variant="outline" asChild>
-            <a href="docs/hvSoftwareDevIsraelAugustoCaceresS.pdf" download>
-              Download CV <ArrowDownToLine className="ml-1" />
-            </a>
+            <a href="#projects">See My Work</a>
           </Button>
         </motion.div>
 

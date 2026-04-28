@@ -2,9 +2,13 @@
 
 import { motion } from "motion/react"
 import { Button } from "@/components/ui/button"
-import { ArrowDownToLine, ArrowRight } from "lucide-react"
+import { ArrowRight, CheckCircle } from "lucide-react"
 
-const TECH = ["React", "Next.js", "Node.js", "TypeScript", "MySQL"]
+const TRUST_POINTS = [
+  "Based in Australia",
+  "Fast turnaround",
+  "No tech jargon",
+]
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -20,13 +24,13 @@ export function Hero() {
         animate="visible"
         transition={{ staggerChildren: 0.12 }}
       >
-        {/* Greeting */}
+        {/* Eyebrow */}
         <motion.p
           variants={fadeUp}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="text-sm font-medium uppercase tracking-widest text-muted-foreground"
         >
-          Hi, I&apos;m Augusto —
+          Websites for Australian Tradies &amp; Small Businesses
         </motion.p>
 
         {/* Headline */}
@@ -35,36 +39,21 @@ export function Hero() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="-mt-4 text-5xl font-bold tracking-tight text-foreground sm:text-6xl"
         >
-          Get More Clients With {" "}
+          More Calls.{" "}
           <span className="text-muted-foreground">
-            High-Converting Websites.
-          </span>
+            More Jobs.
+          </span>{" "}
+          More Revenue.
         </motion.h1>
 
-        {/* Description */}
+        {/* Subheadline */}
         <motion.p
           variants={fadeUp}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="-mt-2 max-w-lg text-lg leading-relaxed text-muted-foreground"
         >
-          I help tradies and small businesses in Australia turn their website into a lead generation machine using SEO, automation &amp; modern web development.
+          I build websites for tradies and small businesses that turn visitors into paying customers — no tech jargon, no wasted money.
         </motion.p>
-
-        {/* Tech badges */}
-        <motion.div
-          variants={fadeUp}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="flex flex-wrap justify-center gap-2"
-        >
-          {TECH.map((tech) => (
-            <span
-              key={tech}
-              className="rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground"
-            >
-              {tech}
-            </span>
-          ))}
-        </motion.div>
 
         {/* CTAs */}
         <motion.div
@@ -73,16 +62,33 @@ export function Hero() {
           className="flex flex-wrap justify-center gap-3"
         >
           <Button size="lg" asChild>
-            <a href="#projects">
-              View Projects <ArrowRight className="ml-1" />
+            <a href="#contact">
+              Get a Free Website Review <ArrowRight className="ml-1" />
             </a>
           </Button>
 
           <Button size="lg" variant="outline" asChild>
-            <a href="docs/hvSoftwareDevIsraelAugustoCaceresS.pdf" download>
-              Download CV <ArrowDownToLine className="ml-1" />
+            <a href="#projects">
+              See How It Works
             </a>
           </Button>
+        </motion.div>
+
+        {/* Trust bar */}
+        <motion.div
+          variants={fadeUp}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="flex flex-wrap justify-center gap-x-5 gap-y-2"
+        >
+          {TRUST_POINTS.map((point) => (
+            <span
+              key={point}
+              className="flex items-center gap-1.5 text-sm text-muted-foreground"
+            >
+              <CheckCircle className="h-4 w-4 shrink-0 text-foreground" />
+              {point}
+            </span>
+          ))}
         </motion.div>
       </motion.div>
     </section>

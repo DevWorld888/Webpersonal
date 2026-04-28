@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
+  { label: "How it Works", href: "#how-it-works" },
   { label: "Contact", href: "#contact" },
 ]
 
@@ -57,13 +57,16 @@ export function Navbar() {
         >
           <Image
             src="/favicon.ico"
-            alt="Gus Dev logo"
+            alt="Augusto Cáceres logo"
             width={24}
             height={24}
             className="h-6 w-6 shrink-0"
             priority
           />
-          <span>Gus Dev</span>
+          <span>Augusto Cáceres</span>
+          <p className="ml-2 rounded bg-muted px-1.5 py-0.5 text-xs font-medium text-foreground">
+            Websites that bring you clients
+          </p>
         </Link>
 
         {/* Desktop nav — hidden on mobile */}

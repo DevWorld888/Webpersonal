@@ -7,20 +7,24 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!)
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-Lite" })
 
 const FALLBACK_REPLY = (name: string) =>
-  `Hi ${name},\n\nGot your message — Augusto will get back to you within 24–48 hours.\n\n— Augusto's team`
+  `Hi ${name},\n\nGot your request — Augusto will review your website and send you feedback within 24–48 hours.\n\n— Augusto`
 
-async function generateReply(name: string, message: string): Promise<string> {
-  const systemPrompt = `You are a professional assistant for Augusto, a fullstack developer and software engineer. When someone sends a contact message through his portfolio, write a warm, concise, personalized auto-reply on his behalf.
+async function generateReply(
+  name: string,
+  service: string,
+  problem: string
+): Promise<string> {
+  const systemPrompt = `You are a professional assistant for Augusto, a web developer who builds websites for tradies and small businesses in Australia. Someone has submitted a free website audit request. Write a warm, concise, personalized auto-reply on his behalf.
 
 Rules:
 - Keep it under 120 words
 - Address the person by their first name only
-- Acknowledge their specific message or need
-- Let them know Augusto will get back to them within 24–48 hours
-- Sign off as: "— Augusto's team"
-- Professional but human tone. No hollow phrases like "Thank you for reaching out" or "I hope this finds you well"`
+- Acknowledge their trade/service and the specific problem they mentioned
+- Let them know Augusto will review their website and send them a short video with real improvements within 24–48 hours
+- Sign off as: "— Augusto"
+- Friendly, direct, no-nonsense tone. No hollow corporate phrases`
 
-  const userPrompt = `Name: ${name}\nMessage: ${message}`
+  const userPrompt = `Name: ${name}\nService: ${service}\nBiggest problem: ${problem}`
 
   try {
     const response = await model.generateContent({
@@ -39,7 +43,6 @@ Rules:
 }
 
 export async function POST(request: NextRequest) {
-  // 1. Parse body
   let body: unknown
   try {
     body = await request.json()
@@ -50,7 +53,6 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  // 2. Validate with Zod
   const result = contactSchema.safeParse(body)
   if (!result.success) {
     const fieldErrors = result.error.flatten().fieldErrors
@@ -60,7 +62,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const { name, email, message } = result.data
+  const { name, email, service, website, problem } = result.data
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
@@ -72,22 +74,24 @@ export async function POST(request: NextRequest) {
     },
   })
 
-  // 3. Generate AI reply + notify owner in parallel
   let aiReply: string
   try {
     ;[aiReply] = await Promise.all([
-      generateReply(name, message),
+      generateReply(name, service, problem),
       transporter.sendMail({
         from: `"Portfolio Contact" <${process.env.SMTP_USER}>`,
         to: process.env.CONTACT_TO,
         replyTo: email,
-        subject: `New message from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+        subject: `New audit request from ${name} — ${service}`,
+        text: `Name: ${name}\nEmail: ${email}\nService: ${service}\nWebsite: ${website || "Not provided"}\n\nBiggest problem:\n${problem}`,
         html: `
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+          <p><strong>Service:</strong> ${service}</p>
+          <p><strong>Website:</strong> ${website ? `<a href="${website}">${website}</a>` : "Not provided"}</p>
           <hr />
-          <p>${message.replace(/\n/g, "<br />")}</p>
+          <p><strong>Biggest problem getting clients:</strong></p>
+          <p>${problem.replace(/\n/g, "<br />")}</p>
         `,
       }),
     ])
@@ -99,17 +103,15 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  // 4. Send AI auto-reply to the lead
   try {
     await transporter.sendMail({
       from: `"Augusto Suarez" <${process.env.SMTP_USER}>`,
       to: email,
-      subject: `Re: Your message`,
+      subject: `Your free website audit`,
       text: aiReply,
       html: `<p style="font-family:sans-serif;line-height:1.6">${aiReply.replace(/\n/g, "<br />")}</p>`,
     })
   } catch (err) {
-    // Auto-reply failure is non-fatal — owner was already notified
     console.error("[contact] auto-reply error:", err)
   }
 
