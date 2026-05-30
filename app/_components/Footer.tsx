@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import { gtagEvent } from "@/lib/analytics"
 
 const NAV_LINKS = [
   { label: "About", href: "#about" },
@@ -77,6 +80,16 @@ export function Footer() {
             ))}
           </ul>
         </nav>
+
+        {/* Phone link */}
+        <a
+          href="tel:+61412053218"
+          aria-label="Call Augusto"
+          onClick={() => gtagEvent("click_call", { phone: "+61412053218" })}
+          className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+        >
+          +61 412 053 218
+        </a>
 
         {/* Social links */}
         <div className="flex items-center gap-4">

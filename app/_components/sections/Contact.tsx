@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { gtagEvent } from "@/lib/analytics"
 import { motion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { CheckCircle } from "lucide-react"
@@ -66,6 +67,7 @@ export function Contact() {
       })
 
       if (!res.ok) throw new Error("server error")
+      gtagEvent("form_submit", { form_name: "contact", service: result.data.service })
       setStatus("success")
     } catch {
       setStatus("error")

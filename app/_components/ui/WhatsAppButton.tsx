@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { gtagEvent } from "@/lib/analytics";
 
 interface WhatsAppButtonProps {
   phone: string;
@@ -32,6 +33,7 @@ export default function WhatsAppButton({ phone, message }: WhatsAppButtonProps) 
         aria-label="Chat on WhatsApp"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        onClick={() => gtagEvent("click_whatsapp", { phone })}
         className="group relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#25D366] shadow-[0_4px_24px_rgba(37,211,102,0.35)] transition-all duration-300 hover:scale-110 hover:shadow-[0_6px_32px_rgba(37,211,102,0.55)]"
       >
         {/* Ping ring — subtle pulse */}

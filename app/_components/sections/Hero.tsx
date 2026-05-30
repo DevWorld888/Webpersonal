@@ -3,6 +3,7 @@
 import { motion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, CheckCircle } from "lucide-react"
+import { gtagEvent } from "@/lib/analytics"
 
 const TRUST_POINTS = [
   "Based in Australia",
@@ -62,7 +63,7 @@ export function Hero() {
           className="flex flex-wrap justify-center gap-3"
         >
           <Button size="lg" asChild>
-            <a href="#contact">
+            <a href="#contact" onClick={() => gtagEvent("quote_request", { location: "hero_cta" })}>
               Get a Free Website Review <ArrowRight className="ml-1" />
             </a>
           </Button>
