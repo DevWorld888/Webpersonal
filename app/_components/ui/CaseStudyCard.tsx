@@ -28,12 +28,12 @@ export function CaseStudyCard({
   return (
     <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm transition-shadow duration-300 hover:shadow-lg hover:shadow-black/20">
       {/* Image */}
-      <div className="relative h-48 w-full overflow-hidden bg-muted sm:h-52">
+      <div className="relative aspect-video w-full overflow-hidden bg-muted">
         <Image
           src={image}
           alt={`${title} website`}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-contain transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />

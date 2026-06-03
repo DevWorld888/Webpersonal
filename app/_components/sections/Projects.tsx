@@ -13,43 +13,76 @@ const CASE_STUDIES = [
     whatIDid: "Rebuilt the website from scratch — clean layout, fast loading, clear service descriptions, and a strong call-to-action on every page. Designed specifically for mobile, where most customers search.",
     focus: "More quote requests. More calls. Showing up when Sydney homeowners search for painters.",
     result: "Ongoing optimisation — building a consistent lead system that works 24/7.",
-    image: "/projects/prismacoatingsProject.jpeg",
+    image: "/projects/prismaCoatings.jpg",
     liveUrl: "https://www.prismacoatings.com.au/",
   },
   {
-    title: "Kword Agency",
-    location: "Digital Agency",
-    goal: "Needed a professional online presence that could attract clients and communicate their services clearly — without looking like every other agency.",
-    whatIDid: "Designed and built a clean, fast website focused on making it easy for potential clients to understand the offer and get in touch.",
-    focus: "Converting website visitors into enquiries and booked consultations.",
-    result: "Ongoing optimisation — refining the pages to increase contact form submissions.",
-    image: "/projects/kwordagency.webp",
-    liveUrl: "https://kwordagency-seven.vercel.app/",
+    title: "Mana Fade Studio",
+    location: "Mount Nelson, Hobart, Tasmania",
+    goal: "The barber relied mostly on word of mouth, phone calls and direct messages. There was no professional online presence, online booking system or local SEO strategy to attract new clients consistently.",
+    whatIDid: "Designed and developed a premium luxury barbershop website from scratch. Created a modern brand identity, mobile-first experience, service pages, online booking integration, local SEO structure and conversion-focused user journey.",
+    focus: "Generating online bookings, improving local visibility in Hobart and turning website visitors into paying clients.",
+    result: "Professional digital presence established. Website launched with online booking system, mobile optimisation and local SEO foundations for long-term growth.",
+    image: "/projects/manafade.png",
+    liveUrl: "https://barbershop-mocha-three.vercel.app/",
   },
 ]
 
-const MINI_CASE_STUDY = {
-  before: [
-    "No consistent way to get new customers online",
-    "Website didn't appear in local Sydney searches",
-    "Visitors landed and left — no calls, no quote requests",
-    "Fully dependent on word of mouth and referrals",
-  ],
-  changes: [
-    "Rebuilt the site to load fast and work perfectly on mobile",
-    "Clear, plain-language service pages with a direct call-to-action",
-    "Homepage designed to answer the key question: 'Why should I call these guys?'",
-    "Set up contact flow to make getting a quote as easy as possible",
-  ],
-  focus: [
-    "More quote requests directly from the website",
-    "Ranking for local searches like 'painters Sydney'",
-    "Turning website visitors into paying customers",
-  ],
-  currentStatus:
-    "Still early — we're actively optimising pages and tracking performance. The system is being built for long-term, consistent results.",
-  goal: "5+ qualified quote requests per month from organic search alone.",
-}
+const CASE_STUDY_DETAILS = [
+  {
+    title: "Prisma Coatings — Sydney",
+    before: [
+      "No consistent way to get new customers online",
+      "Website didn't appear in local Sydney searches",
+      "Visitors landed and left — no calls, no quote requests",
+      "Fully dependent on word of mouth and referrals",
+    ],
+    changes: [
+      "Rebuilt the site to load fast and work perfectly on mobile",
+      "Clear, plain-language service pages with a direct call-to-action",
+      "Homepage designed to answer the key question: 'Why should I call these guys?'",
+      "Set up contact flow to make getting a quote as easy as possible",
+    ],
+    focus: [
+      "More quote requests directly from the website",
+      "Ranking for local searches like 'painters Sydney'",
+      "Turning website visitors into paying customers",
+    ],
+    currentStatus:
+      "Still early — we're actively optimising pages and tracking performance. The system is being built for long-term, consistent results.",
+    goal: "5+ qualified quote requests per month from organic search alone.",
+  },
+  {
+    title: "Mana Fade Studio — Hobart",
+    before: [
+      "No professional website",
+      "No online booking system",
+      "Dependent on word of mouth referrals",
+      "Limited visibility on Google",
+      "No local SEO strategy",
+      "Difficult for new clients to discover the business",
+    ],
+    changes: [
+      "Designed a premium luxury brand experience",
+      "Built a fast, modern, responsive website",
+      "Optimised every page for mobile devices",
+      "Added online booking integration",
+      "Improved user experience and navigation",
+      "Created SEO-focused page structure",
+      "Added clear calls-to-action across the website",
+    ],
+    focus: [
+      "More online bookings directly from the website",
+      "Ranking for searches like 'Barber Hobart' and 'Fade Haircut Hobart'",
+      "Increasing Google Business visibility",
+      "Building a strong local brand presence in Hobart",
+      "Turning visitors into loyal customers",
+    ],
+    currentStatus:
+      "Website launched and actively being optimised. Local SEO, Google Business Profile and customer review strategy are being implemented to increase visibility and bookings.",
+    goal: "50+ online bookings per month. Become one of the most visible premium barbershops in Hobart through organic search, Google Business Profile and a strong online presence.",
+  },
+]
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -111,88 +144,91 @@ export function Projects() {
           ))}
         </motion.div>
 
-        {/* Mini Case Study: Prisma Coatings */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="rounded-2xl border border-border bg-card p-8 shadow-sm"
-        >
-          <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Case Study
-          </p>
-          <h3 className="mb-8 text-2xl font-bold text-foreground">
-            Prisma Coatings — Sydney
-          </h3>
+        {/* Case Study Detail Blocks */}
+        {CASE_STUDY_DETAILS.map((cs) => (
+          <motion.div
+            key={cs.title}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="rounded-2xl border border-border bg-card p-8 shadow-sm"
+          >
+            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+              Case Study
+            </p>
+            <h3 className="mb-8 text-2xl font-bold text-foreground">
+              {cs.title}
+            </h3>
 
-          <div className="grid gap-8 sm:grid-cols-2">
-            {/* Before */}
-            <div>
-              <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                Before
-              </p>
-              <ul className="space-y-2">
-                {MINI_CASE_STUDY.before.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-destructive" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* What I Changed */}
-            <div>
-              <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                What I Changed
-              </p>
-              <ul className="space-y-2">
-                {MINI_CASE_STUDY.changes.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Focus */}
-            <div>
-              <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                What We&apos;re Focusing On
-              </p>
-              <ul className="space-y-2">
-                {MINI_CASE_STUDY.focus.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Status + Goal */}
-            <div className="flex flex-col gap-4">
+            <div className="grid gap-8 sm:grid-cols-2">
+              {/* Before */}
               <div>
-                <p className="mb-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                  Current Status
+                <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  Before
                 </p>
-                <p className="text-sm text-muted-foreground">
-                  {MINI_CASE_STUDY.currentStatus}
-                </p>
+                <ul className="space-y-2">
+                  {cs.before.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-destructive" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
+
+              {/* What I Changed */}
               <div>
-                <p className="mb-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                  The Goal
+                <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  What I Changed
                 </p>
-                <p className="text-sm font-medium text-foreground">
-                  {MINI_CASE_STUDY.goal}
+                <ul className="space-y-2">
+                  {cs.changes.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Focus */}
+              <div>
+                <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  What We&apos;re Focusing On
                 </p>
+                <ul className="space-y-2">
+                  {cs.focus.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Status + Goal */}
+              <div className="flex flex-col gap-4">
+                <div>
+                  <p className="mb-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                    Current Status
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {cs.currentStatus}
+                  </p>
+                </div>
+                <div>
+                  <p className="mb-1 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                    The Goal
+                  </p>
+                  <p className="text-sm font-medium text-foreground">
+                    {cs.goal}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        ))}
 
         {/* Closing CTA */}
         <motion.div
