@@ -40,12 +40,19 @@ export function Hero() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="-mt-4 text-5xl font-bold tracking-tight text-foreground sm:text-6xl"
         >
-          More Calls.{" "}
-          <span className="text-muted-foreground">
-            More Jobs.
-          </span>{" "}
-          More Revenue.
+          Web Developer for Australian Tradies &amp; Small Businesses
         </motion.h1>
+
+        {/* Sub-headline */}
+        <motion.p
+          variants={fadeUp}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="-mt-2 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
+        >
+          More Calls.{" "}
+          <span className="text-muted-foreground">More Jobs.</span>{" "}
+          More Revenue.
+        </motion.p>
 
         {/* Subheadline */}
         <motion.p
@@ -54,6 +61,15 @@ export function Hero() {
           className="-mt-2 max-w-lg text-lg leading-relaxed text-muted-foreground"
         >
           I build websites for tradies and small businesses that turn visitors into paying customers — no tech jargon, no wasted money.
+        </motion.p>
+
+        {/* Location */}
+        <motion.p
+          variants={fadeUp}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="-mt-1 text-sm text-muted-foreground"
+        >
+          📍 Based in Hobart, Tasmania — serving tradies across Australia
         </motion.p>
 
         {/* CTAs */}

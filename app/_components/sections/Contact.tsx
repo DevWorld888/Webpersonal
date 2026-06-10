@@ -4,7 +4,7 @@ import { useState } from "react"
 import { gtagEvent } from "@/lib/analytics"
 import { motion } from "motion/react"
 import { Button } from "@/components/ui/button"
-import { CheckCircle } from "lucide-react"
+import { CheckCircle, Phone, Mail } from "lucide-react"
 import { contactSchema, type ContactFormData } from "@/lib/schemas/contact-schema"
 
 const fadeUp = {
@@ -134,6 +134,30 @@ export function Contact() {
             </p>
           </motion.div>
 
+          {/* Direct contact */}
+          <motion.div
+            variants={fadeUp}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="-mt-6 flex flex-col gap-3 sm:flex-row sm:gap-8"
+          >
+            <a
+              href="tel:+61412053218"
+              onClick={() => gtagEvent("click_call", { phone: "+61412053218" })}
+              className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <Phone className="h-4 w-4 shrink-0" />
+              +61 412 053 218
+            </a>
+            <a
+              href="mailto:augustocsuarez1985@gmail.com"
+              onClick={() => gtagEvent("click_email", { email: "augustocsuarez1985@gmail.com" })}
+              className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <Mail className="h-4 w-4 shrink-0" />
+              augustocsuarez1985@gmail.com
+            </a>
+          </motion.div>
+
           {/* Form */}
           <motion.form
             variants={fadeUp}
@@ -261,6 +285,9 @@ export function Contact() {
               <p className="text-center text-xs text-muted-foreground">
                 No sales call. No commitment. Just honest feedback on what&apos;s
                 holding your business back online.
+              </p>
+              <p className="text-center text-xs text-muted-foreground">
+                I reply within 4 hours on business days — no sales pitch, just honest feedback.
               </p>
             </div>
           </motion.form>

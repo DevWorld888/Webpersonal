@@ -37,7 +37,7 @@ export function About() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="text-sm font-medium uppercase tracking-widest text-muted-foreground"
         >
-          About
+          Web Developer Specialising in Australian Tradies &amp; Small Businesses
         </motion.h2>
 
         {/* Hook — pain point */}

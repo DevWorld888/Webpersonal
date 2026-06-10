@@ -114,7 +114,7 @@ export function Projects() {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="text-4xl font-bold tracking-tight text-foreground"
           >
-            Real Websites. Real Results.
+            Tradie Websites That Generate Real Leads &amp; Calls
           </motion.h2>
           <motion.p
             variants={fadeUp}

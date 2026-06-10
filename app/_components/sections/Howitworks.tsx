@@ -62,7 +62,7 @@ export default function Howitworks() {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
           >
-            How It Works
+            How I Build Tradie Websites That Get More Calls
           </motion.h2>
           <motion.p
             variants={fadeUp}
