@@ -96,10 +96,10 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
-        <WhatsAppButton
+        {/* <WhatsAppButton
           phone="0412053218"
           message="Hi! I saw your portfolio and I'd like to get in touch."
-        />
+        /> */}
         <ScrollDepthTracker />
       </body>
     </html>

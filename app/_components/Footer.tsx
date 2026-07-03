@@ -83,14 +83,7 @@ export function Footer() {
 
         {/* Contact details */}
         <div className="flex flex-col items-center gap-1 sm:items-start">
-          <a
-            href="tel:+61412053218"
-            aria-label="Call Augusto"
-            onClick={() => gtagEvent("click_call", { phone: "+61412053218" })}
-            className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-          >
-            +61 412 053 218
-          </a>
+         
           <a
             href="mailto:augustocsuarez1985@gmail.com"
             aria-label="Email Augusto"

@@ -140,14 +140,14 @@ export function Contact() {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="-mt-6 flex flex-col gap-3 sm:flex-row sm:gap-8"
           >
-            <a
+            {/* <a
               href="tel:+61412053218"
               onClick={() => gtagEvent("click_call", { phone: "+61412053218" })}
               className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               <Phone className="h-4 w-4 shrink-0" />
               +61 412 053 218
-            </a>
+            </a> */}
             <a
               href="mailto:augustocsuarez1985@gmail.com"
               onClick={() => gtagEvent("click_email", { email: "augustocsuarez1985@gmail.com" })}
