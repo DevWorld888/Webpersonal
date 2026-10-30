@@ -23,7 +23,7 @@ export const siteConfig = {
     country: "Australia",
   },
   phone: "+61412053218",
-  email: "augustocsuarez1985@gmail.com",
+  email: "sales@iaugustodev.com",
   social: {
     github: "https://github.com/DevWorld888",
     linkedin: "https://www.linkedin.com/in/augustocs/",
