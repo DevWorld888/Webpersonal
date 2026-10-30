@@ -1,5 +1,7 @@
 import { siteConfig } from "@/lib/site-config"
+import { SERVICES } from "@/lib/content/services"
 
+// Only verified details: no street address, price range or credentials are published
 export function JsonLd() {
   const schema = {
     "@context": "https://schema.org",
@@ -8,71 +10,66 @@ export function JsonLd() {
         "@type": "WebSite",
         "@id": `${siteConfig.url}/#website`,
         url: siteConfig.url,
-        name: "Augusto Cáceres — Web Developer",
+        name: siteConfig.brand,
         description: siteConfig.description,
         inLanguage: "en-AU",
-        potentialAction: {
-          "@type": "SearchAction",
-          target: { "@type": "EntryPoint", urlTemplate: `${siteConfig.url}/?q={search_term_string}` },
-          "query-input": "required name=search_term_string",
-        },
+        publisher: { "@id": `${siteConfig.url}/#business` },
       },
       {
-        "@type": ["LocalBusiness", "ProfessionalService"],
+        "@type": "ProfessionalService",
         "@id": `${siteConfig.url}/#business`,
-        name: "Augusto Cáceres Web Development",
-        alternateName: "Augusto Cáceres",
+        name: siteConfig.brand,
+        alternateName: "iAugustoDev Web Design",
         url: siteConfig.url,
+        logo: `${siteConfig.url}/icon.svg`,
+        image: `${siteConfig.url}/opengraph-image`,
         telephone: siteConfig.phone,
         email: siteConfig.email,
-        description:
-          "Web developer helping Australian tradies and small businesses get more clients through conversion-focused websites, local SEO, and smart automation.",
-        image: `${siteConfig.url}/opengraph-image`,
-        priceRange: "$$",
+        description: siteConfig.description,
         currenciesAccepted: "AUD",
-        paymentAccepted: "Cash, Credit Card, Bank Transfer",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: siteConfig.location.city,
+          addressRegion: siteConfig.location.regionCode,
+          addressCountry: "AU",
+        },
         areaServed: [
+          { "@type": "City", name: "Hobart" },
+          { "@type": "State", name: "Tasmania" },
           { "@type": "Country", name: "Australia" },
-          { "@type": "State", name: "New South Wales" },
+        ],
+        knowsAbout: [
+          "Web design",
+          "Web development",
+          "Local SEO",
+          "Google Business Profile optimisation",
+          "Online booking systems",
+          "Business automation",
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Web Development Services",
-          itemListElement: [
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Website Design & Development",
-                description: "Custom websites built to convert visitors into paying customers.",
-              },
+          name: "Digital services for small businesses",
+          itemListElement: SERVICES.map((service) => ({
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: service.title,
+              description: service.summary,
+              url: `${siteConfig.url}/services#${service.slug}`,
             },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Local SEO",
-                description: "SEO strategy to rank on Google and get found by local customers.",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Free Website Audit",
-                description: "Free review of your current website to identify what is costing you clients.",
-              },
-            },
-          ],
+          })),
         },
-        sameAs: [siteConfig.social.github, siteConfig.social.linkedin],
-        founder: {
-          "@type": "Person",
-          name: "Augusto Cáceres",
-          jobTitle: "Web Developer",
-          url: siteConfig.url,
-          sameAs: [siteConfig.social.github, siteConfig.social.linkedin],
-        },
+        founder: { "@id": `${siteConfig.url}/#founder` },
+        sameAs: [siteConfig.social.linkedin, siteConfig.social.github],
+      },
+      {
+        "@type": "Person",
+        "@id": `${siteConfig.url}/#founder`,
+        name: siteConfig.name,
+        jobTitle: "Founder & Web Developer",
+        worksFor: { "@id": `${siteConfig.url}/#business` },
+        url: `${siteConfig.url}/about`,
+        sameAs: [siteConfig.social.linkedin, siteConfig.social.github],
       },
     ],
   }
@@ -80,7 +77,7 @@ export function JsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}
     />
   )
 }

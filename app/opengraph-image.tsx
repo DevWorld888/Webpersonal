@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og"
 
-export const runtime = "edge"
-export const alt = "Augusto Cáceres — Web Developer for Australian Tradies & Small Businesses"
+export const alt = "iAugustoDev — Websites & digital solutions for Australian small businesses"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
@@ -10,85 +9,65 @@ export default function Image() {
     (
       <div
         style={{
-          background: "#09090b",
           width: "100%",
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          alignItems: "flex-start",
-          justifyContent: "center",
-          padding: "80px",
+          justifyContent: "space-between",
+          padding: "72px 80px",
+          background: "linear-gradient(135deg, #FFFFFF 0%, #F0F7FF 60%, #DCEBFF 100%)",
           fontFamily: "system-ui, sans-serif",
         }}
       >
-        {/* Eyebrow */}
-        <p
-          style={{
-            color: "#71717a",
-            fontSize: 18,
-            letterSpacing: 4,
-            textTransform: "uppercase",
-            margin: 0,
-            marginBottom: 20,
-          }}
-        >
-          Web Developer · Australia
-        </p>
-
-        {/* Headline */}
-        <h1
-          style={{
-            color: "#fafafa",
-            fontSize: 60,
-            fontWeight: 700,
-            lineHeight: 1.1,
-            margin: 0,
-            marginBottom: 24,
-          }}
-        >
-          More Calls. More Jobs.{"\n"}More Revenue.
-        </h1>
-
-        {/* Sub */}
-        <p style={{ color: "#a1a1aa", fontSize: 26, margin: 0, marginBottom: 56 }}>
-          Websites for tradies & small businesses that bring in clients.
-        </p>
-
-        {/* Author chip */}
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        {/* Wordmark */}
+        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <div
             style={{
-              width: 52,
-              height: 52,
-              borderRadius: 26,
-              background: "#fafafa",
+              width: 64,
+              height: 64,
+              borderRadius: 16,
+              background: "linear-gradient(135deg, #2563EB, #38BDF8)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              color: "#FFFFFF",
+              fontSize: 28,
+              fontWeight: 700,
             }}
           >
-            <span style={{ color: "#09090b", fontSize: 22, fontWeight: 700 }}>A</span>
+            iA
           </div>
-          <span style={{ color: "#fafafa", fontSize: 22, fontWeight: 600 }}>
-            Augusto Cáceres
-          </span>
-          <span
+          <div style={{ display: "flex", fontSize: 34, fontWeight: 600, color: "#0F172A" }}>
+            <span>iAugusto</span>
+            <span style={{ color: "#2563EB", marginLeft: -4 }}>Dev</span>
+          </div>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+          <div
             style={{
-              marginLeft: 8,
-              background: "#27272a",
-              border: "1px solid #3f3f46",
-              borderRadius: 6,
-              padding: "4px 12px",
-              color: "#a1a1aa",
-              fontSize: 14,
-              letterSpacing: 1,
+              display: "flex",
+              fontSize: 68,
+              fontWeight: 700,
+              lineHeight: 1.08,
+              color: "#0F172A",
+              letterSpacing: -2,
+              maxWidth: 980,
             }}
           >
-            Websites that bring you clients
-          </span>
+            Websites &amp; Digital Solutions That Help Your Business Grow
+          </div>
+          <div style={{ display: "flex", fontSize: 28, color: "#475569", maxWidth: 900 }}>
+            Professional websites, local SEO and smart automation for Australian small businesses.
+          </div>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 22, color: "#2563EB", fontWeight: 600 }}>
+          <div style={{ width: 10, height: 10, borderRadius: 5, background: "#2563EB" }} />
+          Based in Hobart, Tasmania · Serving businesses across Australia
         </div>
       </div>
     ),
-    { width: 1200, height: 630 }
+    size
   )
 }

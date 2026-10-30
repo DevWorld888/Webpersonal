@@ -1,86 +1,66 @@
-"use client"
-
 import Image from "next/image"
-import { ExternalLink } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ArrowUpRight, MapPin } from "lucide-react"
+import type { Project } from "@/lib/content/projects"
 
-export interface CaseStudyCardProps {
-  title: string
-  location?: string
-  goal: string
-  whatIDid: string
-  focus: string
-  result: string
-  image: string
-  liveUrl?: string
-}
+export function CaseStudyCard({ project, priority }: { project: Project; priority?: boolean }) {
+  const { name, industry, location, image, imageAlt, url, challenge, solution, services } = project
 
-export function CaseStudyCard({
-  title,
-  location,
-  goal,
-  whatIDid,
-  focus,
-  result,
-  image,
-  liveUrl,
-}: CaseStudyCardProps) {
   return (
-    <article className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm transition-shadow duration-300 hover:shadow-lg hover:shadow-black/20">
-      {/* Image */}
-      <div className="relative aspect-video w-full overflow-hidden bg-muted">
+    <article className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-soft transition-shadow duration-300 hover:shadow-lift">
+      <div className="relative aspect-[3/2] overflow-hidden bg-navy">
         <Image
           src={image}
-          alt={`${title} website`}
+          alt={imageAlt}
           fill
-          className="object-contain transition-transform duration-500 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority={priority}
+          sizes="(max-width: 768px) 100vw, 560px"
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
         />
-        <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
       </div>
 
-      {/* Body */}
-      <div className="flex flex-1 flex-col gap-4 p-5">
-        <div>
-          <h3 className="text-lg font-semibold leading-snug text-foreground">
-            {title}
-          </h3>
-          {location && (
-            <p className="mt-0.5 text-xs text-muted-foreground">{location}</p>
-          )}
+      <div className="flex flex-1 flex-col gap-5 p-7">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+          <span className="rounded-full bg-secondary px-3 py-1 font-medium text-primary">{industry}</span>
+          <span className="inline-flex items-center gap-1 text-muted-foreground">
+            <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+            {location}
+          </span>
         </div>
 
-        <div className="flex flex-col gap-3 text-sm">
+        <h3 className="text-2xl font-semibold tracking-tight text-navy">{name}</h3>
+
+        <dl className="flex flex-col gap-4 text-[15px] leading-relaxed">
           <div>
-            <span className="font-medium text-foreground">Goal: </span>
-            <span className="text-muted-foreground">{goal}</span>
+            <dt className="font-semibold text-navy">The challenge</dt>
+            <dd className="mt-1 text-body">{challenge}</dd>
           </div>
           <div>
-            <span className="font-medium text-foreground">What I did: </span>
-            <span className="text-muted-foreground">{whatIDid}</span>
+            <dt className="font-semibold text-navy">The solution</dt>
+            <dd className="mt-1 text-body">{solution}</dd>
           </div>
-          <div>
-            <span className="font-medium text-foreground">Focus: </span>
-            <span className="text-muted-foreground">{focus}</span>
-          </div>
-          <div>
-            <span className="font-medium text-foreground">Result: </span>
-            <span className="text-muted-foreground">{result}</span>
-          </div>
-        </div>
+        </dl>
+
+        <ul aria-label="Services delivered" className="flex flex-wrap gap-2">
+          {services.map((service) => (
+            <li
+              key={service}
+              className="rounded-md border border-border px-2.5 py-1 text-xs font-medium text-body"
+            >
+              {service}
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-semibold text-primary hover:text-brand-dark"
+        >
+          Visit live website<span className="sr-only"> for {name} (opens in a new tab)</span>
+          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </a>
       </div>
-
-      {/* Footer */}
-      {liveUrl && (
-        <div className="border-t border-border px-5 py-4">
-          <Button size="sm" asChild className="w-full">
-            <a href={liveUrl} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
-              View Website
-            </a>
-          </Button>
-        </div>
-      )}
     </article>
   )
 }

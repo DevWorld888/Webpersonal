@@ -1,33 +1,35 @@
-import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/seo"
 import { Hero } from "./_components/sections/Hero"
-import { About } from "./_components/sections/About"
-import Howitworks from "./_components/sections/Howitworks"
-import { Projects } from "./_components/sections/Projects"
-import { Contact } from "./_components/sections/Contact"
+import { Challenges } from "./_components/sections/Challenges"
+import { Services } from "./_components/sections/Services"
+import { Portfolio } from "./_components/sections/Portfolio"
+import { Process } from "./_components/sections/Process"
+import { WhyChoose } from "./_components/sections/WhyChoose"
+import { Founder } from "./_components/sections/Founder"
+import { FaqSection } from "./_components/sections/FaqSection"
+import { CtaPanel } from "./_components/ui/CtaPanel"
 
-export const metadata: Metadata = {
-  title: "Web Developer for Australian Tradies & Small Businesses",
+export const metadata = pageMetadata({
+  title: "Web Design Hobart | Websites & Digital Solutions for Small Businesses | iAugustoDev",
   description:
-    "I build websites for tradies and small businesses that turn visitors into paying customers. More calls, more jobs, more revenue — no tech jargon, no agency fees. Based in Australia.",
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: "Web Developer for Australian Tradies & Small Businesses | Augusto Cáceres",
-    description:
-      "I build websites for tradies and small businesses that turn visitors into paying customers. More calls, more jobs, more revenue.",
-    url: "/",
-  },
-}
+    "Professional websites, local SEO, Google Business Profile optimisation, online booking and automation for Australian small businesses. Founder-led web design based in Hobart, Tasmania.",
+  path: "/",
+  absoluteTitle: true,
+})
 
 export default function Home() {
   return (
-    <main>
+    <main id="main">
       <Hero />
-      <About />
-      <Projects />
-      <Howitworks />
-      <Contact />
+      <Challenges />
+      <Services />
+      <Portfolio />
+      <Process />
+      <WhyChoose />
+      <Founder />
+      <FaqSection />
+      {/* id="contact" keeps legacy /#contact links landing on a call to action */}
+      <CtaPanel id="contact" location="home_final_cta" />
     </main>
   )
 }

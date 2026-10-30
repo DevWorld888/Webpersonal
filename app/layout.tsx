@@ -1,10 +1,9 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import Script from "next/script"
 import { Navbar } from "./_components/Navbar"
 import { Footer } from "./_components/Footer"
 import { JsonLd } from "./_components/JsonLd"
-import WhatsAppButton from "./_components/ui/WhatsAppButton"
 import { ScrollDepthTracker } from "./_components/ScrollDepthTracker"
 import { siteConfig } from "@/lib/site-config"
 import "./globals.css"
@@ -21,16 +20,23 @@ const geistMono = Geist_Mono({
   display: "swap",
 })
 
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
+  colorScheme: "light",
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.title,
-    template: "%s | Augusto Cáceres",
+    template: "%s | iAugustoDev",
   },
   description: siteConfig.description,
+  applicationName: siteConfig.brand,
   keywords: siteConfig.keywords,
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
+  publisher: siteConfig.brand,
   robots: {
     index: true,
     follow: true,
@@ -46,24 +52,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_AU",
     url: siteConfig.url,
-    siteName: "Augusto Cáceres — Web Developer",
+    siteName: siteConfig.brand,
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "Augusto Cáceres — Web Developer for Australian Tradies & Small Businesses",
-        type: "image/png",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: ["/opengraph-image"],
   },
 }
 
@@ -75,7 +71,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-AU"
-      className={`${geistSans.variable} ${geistMono.variable} dark h-full scroll-smooth antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <head>
         <JsonLd />
@@ -92,7 +88,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col bg-white text-navy">
         <Navbar />
         {children}
         <Footer />

@@ -1,115 +1,109 @@
-"use client"
-
 import Link from "next/link"
-import { gtagEvent } from "@/lib/analytics"
-
-const NAV_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "How it Works", href: "#how-it-works" },
-  { label: "Contact", href: "#contact" },
-]
+import { Mail, MapPin } from "lucide-react"
+import { NAV_LINKS, siteConfig } from "@/lib/site-config"
+import { SERVICES, serviceHref } from "@/lib/content/services"
+import { Container } from "./ui/Section"
+import { Logo } from "./ui/Logo"
+import { TrackedLink } from "./ui/TrackedLink"
+import { GitHubIcon, LinkedInIcon } from "./ui/SocialIcons"
 
 const SOCIAL_LINKS = [
-  {
-    label: "GitHub",
-    href: "https://github.com/DevWorld888",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        aria-hidden="true"
-      >
-        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.603-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.268 2.75 1.026A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.026 2.747-1.026.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
-      </svg>
-    ),
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/augustocs/",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        aria-hidden="true"
-      >
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-      </svg>
-    ),
-  },
+  { label: "LinkedIn", href: siteConfig.social.linkedin, Icon: LinkedInIcon },
+  // { label: "GitHub", href: siteConfig.social.github, Icon: GitHubIcon },
 ]
+
+const linkClass = "text-sm text-body transition-colors hover:text-primary"
 
 export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="mt-auto border-t border-border">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 px-6 py-8 sm:flex-row sm:justify-between">
-
-        {/* Name + copyright */}
-        <div className="flex flex-col items-center gap-1 sm:items-start">
-          <Link
-            href="/"
-            className="text-sm font-semibold text-foreground transition-colors hover:text-muted-foreground"
-          >
-            Augusto Caceres Suarez
-          </Link>
-          <p className="text-xs text-muted-foreground">
-            &copy; {year} All rights reserved.
+    <footer className="mt-auto border-t border-border bg-white">
+      <Container className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.2fr_1.2fr]">
+        <div className="flex flex-col gap-4">
+          <Logo />
+          <p className="max-w-xs text-sm leading-relaxed text-body">
+            Professional websites, local SEO and smart automation for Australian small businesses.
+          </p>
+          <p className="flex items-center gap-2 text-sm text-muted-foreground">
+            <MapPin className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+            Based in Hobart, Tasmania · Serving all of Australia
           </p>
         </div>
 
-        {/* Nav links */}
         <nav aria-label="Footer navigation">
-          <ul className="flex items-center gap-6">
+          <h2 className="mb-4 text-sm font-semibold text-navy">Navigation</h2>
+          <ul className="flex flex-col gap-3">
             {NAV_LINKS.map(({ label, href }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-                >
+              <li key={href}>
+                <Link href={href} className={linkClass}>
                   {label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
 
-        {/* Contact details */}
-        <div className="flex flex-col items-center gap-1 sm:items-start">
-         
-          <a
-            href="mailto:augustocsuarez1985@gmail.com"
-            aria-label="Email Augusto"
-            onClick={() => gtagEvent("click_email", { email: "augustocsuarez1985@gmail.com" })}
-            className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-          >
-            augustocsuarez1985@gmail.com
-          </a>
+        <div>
+          <h2 className="mb-4 text-sm font-semibold text-navy">Services</h2>
+          <ul className="flex flex-col gap-3">
+            {SERVICES.map(({ slug, title }) => (
+              <li key={slug}>
+                <Link href={serviceHref(slug)} className={linkClass}>
+                  {title}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Social links */}
-        <div className="flex items-center gap-4">
-          {SOCIAL_LINKS.map(({ label, href, icon }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {icon}
-            </a>
-          ))}
+        <div>
+          <h2 className="mb-4 text-sm font-semibold text-navy">Get in touch</h2>
+          <ul className="flex flex-col gap-3">
+            <li>
+              <TrackedLink
+                href={`mailto:${siteConfig.email}`}
+                event="click_email"
+                params={{ location: "footer" }}
+                className={`${linkClass} inline-flex items-center gap-2 break-all`}
+              >
+                <Mail className="h-4 w-4 shrink-0" aria-hidden="true" />
+                {siteConfig.email}
+              </TrackedLink>
+            </li>
+            <li>
+              <Link href="/contact" className={linkClass}>
+                Get a free quote
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact?type=review" className={linkClass}>
+                Request a website review
+              </Link>
+            </li>
+          </ul>
+          <div className="mt-6 flex items-center gap-2">
+            {SOCIAL_LINKS.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${label} (opens in a new tab)`}
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-body transition-colors hover:border-primary/40 hover:text-primary"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
         </div>
+      </Container>
 
+      <div className="border-t border-border">
+        <Container className="flex flex-col gap-2 py-6 text-xs text-muted-foreground sm:flex-row sm:justify-between">
+          <p>&copy; {year} iAugustoDev. All rights reserved.</p>
+          <p>Founder-led web design &amp; digital solutions · Hobart, Tasmania</p>
+        </Container>
       </div>
     </footer>
   )

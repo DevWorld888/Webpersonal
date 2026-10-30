@@ -2,34 +2,42 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
-
-const NAV_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "How it Works", href: "#how-it-works" },
-  { label: "Contact", href: "#contact" },
-]
+import { usePathname } from "next/navigation"
+import { ArrowRight, Menu, X } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { gtagEvent } from "@/lib/analytics"
+import { NAV_LINKS, QUOTE_HREF } from "@/lib/site-config"
+import { Container } from "./ui/Section"
+import { Logo } from "./ui/Logo"
 
 export function Navbar() {
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
-  // Scroll detection
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
-  // Lock body scroll when mobile menu is open
+  // Close the menu when navigating to another page
+  const [lastPath, setLastPath] = useState(pathname)
+  if (pathname !== lastPath) {
+    setLastPath(pathname)
+    setIsOpen(false)
+  }
+
+  // Lock body scroll while the mobile menu is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : ""
-    return () => { document.body.style.overflow = "" }
+    return () => {
+      document.body.style.overflow = ""
+    }
   }, [isOpen])
 
-  // Close on Escape key
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIsOpen(false)
@@ -39,100 +47,103 @@ export function Navbar() {
   }, [])
 
   const close = () => setIsOpen(false)
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href))
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-300",
         scrolled || isOpen
-          ? "border-b border-border bg-background/95 backdrop-blur-md"
-          : "bg-transparent"
-      }`}
+          ? "border-b border-border bg-white/90 shadow-[0_1px_12px_rgb(15_23_42/0.04)] backdrop-blur-md"
+          : "border-b border-transparent bg-white/0"
+      )}
     >
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        {/* Logo */}
-        <Link
-          href="/"
-          onClick={close}
-          className="flex items-center gap-2 text-sm font-semibold text-foreground transition-colors hover:text-muted-foreground"
-        >
-          <Image
-            src="/favicon.ico"
-            alt="Augusto Cáceres logo"
-            width={24}
-            height={24}
-            className="h-6 w-6 shrink-0"
-            priority
-          />
-          <span>Augusto Cáceres</span>
-          <p className="ml-2 rounded bg-muted px-1.5 py-0.5 text-xs font-medium text-foreground">
-            Websites that bring you clients
-          </p>
-        </Link>
-
-        {/* Desktop nav — hidden on mobile */}
-        <ul className="hidden items-center gap-8 sm:flex">
-          {NAV_LINKS.map(({ label, href }) => (
-            <li key={label}>
-              <a
-                href={href}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        {/* Hamburger button — visible on mobile only */}
-        <button
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isOpen}
-          onClick={() => setIsOpen((prev) => !prev)}
-          className="relative flex h-8 w-8 flex-col items-center justify-center gap-1.5 sm:hidden"
-        >
-          <span
-            className={`block h-px w-5 bg-foreground transition-all duration-300 ${
-              isOpen ? "translate-y-[7px] rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`block h-px w-5 bg-foreground transition-all duration-300 ${
-              isOpen ? "scale-x-0 opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`block h-px w-5 bg-foreground transition-all duration-300 ${
-              isOpen ? "-translate-y-[7px] -rotate-45" : ""
-            }`}
-          />
-        </button>
-      </nav>
-
-      {/* Mobile menu panel — slides open below the nav bar */}
-      <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out sm:hidden ${
-          isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
-        }`}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:shadow-soft"
       >
-        <ul className="flex flex-col px-6 pb-8 pt-2">
-          {NAV_LINKS.map(({ label, href }, i) => (
-            <li
-              key={label}
-              style={{ transitionDelay: isOpen ? `${i * 50}ms` : "0ms" }}
-              className={`border-b border-border/50 transition-all duration-300 last:border-0 ${
-                isOpen ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"
-              }`}
+        Skip to content
+      </a>
+
+      <Container>
+        <nav aria-label="Main navigation" className="flex h-16 items-center justify-between gap-6 sm:h-[72px]">
+          <Logo onClick={close} />
+
+          <ul className="hidden items-center gap-1 lg:flex">
+            {NAV_LINKS.map(({ label, href }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  aria-current={isActive(href) ? "page" : undefined}
+                  className={cn(
+                    "rounded-md px-3.5 py-2 text-[15px] font-medium transition-colors",
+                    isActive(href) ? "text-primary" : "text-body hover:text-navy"
+                  )}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-2">
+            <Button asChild size="lg" className="hidden sm:inline-flex">
+              <Link href={QUOTE_HREF} onClick={() => gtagEvent("quote_request", { location: "navbar" })}>
+                Get a Free Quote
+              </Link>
+            </Button>
+
+            <button
+              type="button"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              onClick={() => setIsOpen((prev) => !prev)}
+              className="flex h-10 w-10 items-center justify-center rounded-lg text-navy transition-colors hover:bg-secondary lg:hidden"
             >
-              <a
-                href={href}
-                onClick={close}
-                className="block py-4 text-base font-medium text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
+        </nav>
+      </Container>
+
+      {/* Mobile menu */}
+      <div
+        id="mobile-menu"
+        hidden={!isOpen}
+        className="h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border bg-white lg:hidden"
+      >
+        <Container className="flex flex-col gap-6 py-6">
+          <ul className="flex flex-col">
+            {NAV_LINKS.map(({ label, href }) => (
+              <li key={href} className="border-b border-border last:border-0">
+                <Link
+                  href={href}
+                  onClick={close}
+                  aria-current={isActive(href) ? "page" : undefined}
+                  className={cn(
+                    "flex items-center justify-between py-4 text-lg font-medium",
+                    isActive(href) ? "text-primary" : "text-navy"
+                  )}
+                >
+                  {label}
+                  <ArrowRight className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Button asChild size="xl" className="w-full">
+            <Link
+              href={QUOTE_HREF}
+              onClick={() => {
+                gtagEvent("quote_request", { location: "mobile_menu" })
+                close()
+              }}
+            >
+              Get a Free Quote
+            </Link>
+          </Button>
+        </Container>
       </div>
     </header>
   )
